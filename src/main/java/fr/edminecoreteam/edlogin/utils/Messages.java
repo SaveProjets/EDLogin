@@ -166,7 +166,7 @@ public class Messages
 	
 	public static String errorNotServer()
 	{
-		return "§cErreur de connexion, aucun serveurs d'authentifications n'est disponible...";
+		return "§cErreur de connexion, aucun lobbys n'est disponible...";
 	}
 	
 	public static void kickForSetUUIDSuccess(ProxiedPlayer p)
