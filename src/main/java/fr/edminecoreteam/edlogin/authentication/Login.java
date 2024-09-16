@@ -22,8 +22,7 @@ public class Login extends Command
 	  
 	public void execute(CommandSender sender, String[] args) {
 		
-		new AccountInfo(sender.getName().toString());
-        AccountInfo accountInfo = new AccountInfo(sender.getName().toString());
+        AccountInfo accountInfo = new AccountInfo((ProxiedPlayer) sender);
         ServerInfo target = ProxyServer.getInstance().getServerInfo("Lobby1");
         ProxiedPlayer player = (ProxiedPlayer)sender;
         
@@ -36,7 +35,7 @@ public class Login extends Command
         {
         	if (accountInfo.getStatut() == 0)
         	{
-        		if (accountInfo.getTypeOfAccount() != null)
+        		/*if (accountInfo.getTypeOfAccount() != null)
         		{
         			if (args.length <= 0) 
         	        {
@@ -76,7 +75,7 @@ public class Login extends Command
         		else if (accountInfo.getTypeOfAccount() == null)
         		{
         			Messages.errorNotDefiendTypeOfAccount(player);
-        		}
+        		}*/
         	}
         	else if (accountInfo.getStatut() == 1)
         	{

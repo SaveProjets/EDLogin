@@ -21,8 +21,7 @@ public class Register extends Command
 	public void execute(CommandSender sender, String[] args) {
 		
 		ProxiedPlayer p = (ProxiedPlayer)sender;
-		new AccountInfo(sender.getName().toString());
-        AccountInfo accountInfo = new AccountInfo(sender.getName().toString());
+        AccountInfo accountInfo = new AccountInfo((ProxiedPlayer) sender);
 	    if (accountInfo.hasCompleteAccount() == null)
 	    {
 	    	if (args.length <= 1) 

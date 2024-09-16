@@ -63,7 +63,7 @@ public class MySQL
     
     public void creatingTableLogin() {
         try {
-        	PreparedStatement stm = MySQL.connection.prepareStatement("CREATE TABLE IF NOT EXISTS ed_login (`player_name` varchar(255) NOT NULL, `player_uuid` varchar(255), `player_password` varchar(255), `lastIP` varchar(255), `lastAuth` varchar(255), `isPremium` varchar(255), `isOnline` int(11), PRIMARY KEY (`player_name`), UNIQUE(`player_name`), INDEX(`player_name`)) CHARACTER SET utf8");
+        	PreparedStatement stm = MySQL.connection.prepareStatement("CREATE TABLE IF NOT EXISTS ed_login (`player_uuid` varchar(255), `player_password` varchar(255), `lastIP` varchar(255), `lastAuth` varchar(255),`isOnline` int(11), PRIMARY KEY (`player_uuid`), UNIQUE(`player_uuid`), INDEX(`player_uuid`), CONSTRAINT fk_player_uuid FOREIGN KEY (player_uuid) REFERENCES ed_accounts(player_uuid)) CHARACTER SET utf8");
             stm.execute();
             stm.close();
         }

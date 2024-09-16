@@ -1,34 +1,36 @@
 package fr.edminecoreteam.edlogin.cache;
 
+import net.md_5.bungee.api.connection.ProxiedPlayer;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class AccountInfo 
 {
-	private static Map<String, AccountInfo> accountInfo;
-	private String playerName;
+	private static Map<ProxiedPlayer, AccountInfo> accountInfo;
+	private ProxiedPlayer player;
 	private AccountData accountData;
 	
 	static 
 	{
-		AccountInfo.accountInfo = new HashMap<String, AccountInfo>();
+		AccountInfo.accountInfo = new HashMap<ProxiedPlayer, AccountInfo>();
 	}
 	
-	public AccountInfo(String playerName) 
+	public AccountInfo(ProxiedPlayer player)
 	{
-        this.playerName = playerName;
-        this.accountData = new AccountData(playerName);
-        AccountInfo.accountInfo.put(playerName, this);
+        this.player = player;
+        this.accountData = new AccountData(player);
+        AccountInfo.accountInfo.put(player, this);
     }
 	
-	public static AccountInfo getInfosOfPlayer(String playerName) 
+	public static AccountInfo getInfosOfPlayer(ProxiedPlayer player)
 	{
-        return AccountInfo.accountInfo.get(playerName);
+        return AccountInfo.accountInfo.get(player);
     }
 	
-	public String getPlayerName() 
+	public String getPlayerUUID()
 	{
-        return this.playerName;
+        return this.player.getUniqueId().toString();
     }
 	
 	public void createAccount() 
@@ -55,26 +57,16 @@ public class AccountInfo
 	{
         return this.accountData.getPassword();
     }
+
 	
-	public void setTypeOfAccount(String accountType) 
+	public void updatePlayerName()
 	{
-        this.accountData.setTypeOfAccount(accountType);
+        this.accountData.updatePlayerName();
     }
-	
-	public String getTypeOfAccount() 
-	{
-        return this.accountData.getTypeOfAccount();
-    }
-	
-	public void setUUID(String UUID) 
-	{
-        this.accountData.setUUID(UUID);
-    }
-	
-	public String getUUID() 
-	{
-        return this.accountData.getUUID();
-    }
+
+	public String getDbName(){
+		return this.accountData.getDbName();
+	}
 	
 	public void setLastIP(String IPAdress) 
 	{

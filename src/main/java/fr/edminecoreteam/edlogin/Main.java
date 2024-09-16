@@ -45,7 +45,6 @@ public class Main extends Plugin
 	private void databaseConnect() {
 		(Main.database = new MySQL("jdbc:mysql://", config.getString("mysql.host"), config.getString("mysql.database"), config.getString("mysql.user"), config.getString("mysql.password"))).connexion();
 		if (!database.isOnline()) { return; }
-		Main.database.creatingTableLogin();
 		PingServers pSrv = new PingServers();
 	    Main.srvNumber = pSrv.getServerPerGroup();
 		refreshConnexion();

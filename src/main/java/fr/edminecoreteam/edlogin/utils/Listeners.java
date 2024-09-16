@@ -73,7 +73,7 @@ public class Listeners implements Listener
 	{
 		ProxiedPlayer player = e.getPlayer();
 	    PingServers ping = new PingServers();
-        AccountInfo accountInfo = new AccountInfo(player.getName().toString());
+        AccountInfo accountInfo = new AccountInfo(player);
 		if (e.getPlayer() != null)
 		{
 			if (!accountInfo.hasAccount())
@@ -108,15 +108,9 @@ public class Listeners implements Listener
 
 										//
 				    			ServerInfo lobby = ProxyServer.getInstance().getServerInfo(ping.getAServerLobbyResponse());
-				    			if (accountInfo.getUUID() == null)
-						    	{
-				    				String UUID = player.getUniqueId().toString();
-						    		accountInfo.setUUID(UUID);
-						    	}
 
-
-				    				String UUID = player.getUniqueId().toString();
-									String dbUUID = accountInfo.getUUID().toString();
+				    				String UUID = player.getName();
+									String dbUUID = accountInfo.getDbName();
 				    				if (UUID.contentEquals(dbUUID))
 						    		{
 					    					if (online == true)
@@ -135,7 +129,7 @@ public class Listeners implements Listener
 						    		}
 						    		if (!UUID.contentEquals(dbUUID))
 						    		{
-							    		Messages.kickHackingAccount(player, UUID);
+							    		accountInfo.updatePlayerName();
 						    		}
 
 				    		}
@@ -144,8 +138,8 @@ public class Listeners implements Listener
 			}
 			else if (accountInfo.getStatut() == 1)
 			{
-				String UUID = player.getUniqueId().toString();
-				String dbUUID = accountInfo.getUUID().toString();
+				String UUID = player.getName();
+				String dbUUID = accountInfo.getDbName();
 
 				if (UUID.contentEquals(dbUUID))
 	    		{
@@ -153,7 +147,7 @@ public class Listeners implements Listener
 	    		}
 	    		if (!UUID.contentEquals(dbUUID))
 	    		{
-	    			Messages.kickHackingAccount(player, UUID);
+					accountInfo.updatePlayerName();
 	    		}
 			}
 		}
@@ -163,8 +157,7 @@ public class Listeners implements Listener
 	public void onPlayerLeave(PlayerDisconnectEvent pde) {
 		ProxiedPlayer player = pde.getPlayer();
 
-		new AccountInfo(player.getName().toString());
-        AccountInfo accountInfo = new AccountInfo(player.getName().toString());
+        AccountInfo accountInfo = new AccountInfo(player);
         String IPAdress = player.getAddress().getHostString();
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy  hh:mm:ss", Locale.FRANCE);
         Date resultdate = new Date();

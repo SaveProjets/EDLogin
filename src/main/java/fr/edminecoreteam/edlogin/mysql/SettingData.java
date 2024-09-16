@@ -20,8 +20,8 @@ public class SettingData
     {
         try 
         {
-            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("SELECT player_lang FROM ed_settings WHERE player_name = ?");
-            preparedStatement.setString(1, p.getName());
+            PreparedStatement preparedStatement = MySQL.getConnection().prepareStatement("SELECT player_lang FROM ed_settings WHERE player_uuid = ?");
+            preparedStatement.setString(1, p.getUniqueId().toString());
             int result = 0;
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) 
