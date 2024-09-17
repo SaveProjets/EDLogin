@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 import fr.edminecoreteam.edlogin.Main;
@@ -20,6 +21,7 @@ import net.md_5.bungee.api.event.ServerConnectEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.connection.InitialHandler;
 import net.md_5.bungee.event.EventHandler;
+import net.md_5.bungee.event.EventPriority;
 
 public class Listeners implements Listener
 {
@@ -68,7 +70,7 @@ public class Listeners implements Listener
 	}
 
 	@SuppressWarnings("deprecation")
-	@EventHandler(priority = 64)
+	@EventHandler(priority = EventPriority.HIGH)
     public void onLogin(ServerConnectEvent e)
 	{
 		ProxiedPlayer player = e.getPlayer();
@@ -90,7 +92,13 @@ public class Listeners implements Listener
 					System.out.println(player + " connect to server: " + target);
 					e.setTarget(target);
 					this.main.getLogger().info(player.getName() + " s'est connecté pour la première fois...");
-					accountInfo.createAccount();
+					ProxyServer.getInstance().getScheduler().schedule(Main.getInstance(), new Runnable() {
+						public void run(){
+							accountInfo.createAccount();
+						}
+							}, 500, TimeUnit.MILLISECONDS);
+
+
 					Messages.welcomeMessage(player);
 				}
 		    }
